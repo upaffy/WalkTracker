@@ -7,21 +7,37 @@
 
 import UIKit
 
-class MainMapViewController: UIViewController {
+protocol MainMapViewInputProtocol: AnyObject {
+    func setGreeting(greeting: String)
+}
 
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.text = "Hello world!"
-        
-        return label
-    }()
+protocol MainMapViewOutputProtocol {
+    init(view: MainMapViewInputProtocol)
+    func viewDidLoad()
+}
+
+class MainMapViewController: UIViewController, MainMapViewInputProtocol {
+    
+    var presenter: MainMapViewOutputProtocol!
+    
+    private let configurator: MainMapConfiguratorInputProtocol = MainMapConfigurator()
+    
+    let label = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        configurator.configure(withView: self)
+        
+        presenter.viewDidLoad()
         
         setupSubviews(label)
         setConstraints()
+        
+        view.backgroundColor = .white
+    }
+    
+    func setGreeting(greeting: String) {
+        label.text = greeting
     }
     
     private func setupSubviews(_ subviews: UIView...) {
