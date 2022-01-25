@@ -4,10 +4,10 @@
 //
 //  Created by Pavlentiy on 25.01.2022.
 //
+import MapboxMaps
 
 struct MainMapData {
-    let greting: String
-    let object: String
+    let mapInitOptions: MapInitOptions
 }
 
 class MainMapPresenter: MainMapViewOutputProtocol, MainMapInteractorOutputProtocol {
@@ -23,6 +23,6 @@ class MainMapPresenter: MainMapViewOutputProtocol, MainMapInteractorOutputProtoc
     }
     
     func receiveMainMapData(mainMapData: MainMapData) {
-        view.setGreeting(greeting: "\(mainMapData.greting) \(mainMapData.object)")
+        view.initMap(mapInitOptions: mainMapData.mapInitOptions)
     }
 }

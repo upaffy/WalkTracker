@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import MapboxMaps
 
 protocol MainMapViewInputProtocol: AnyObject {
-    func setGreeting(greeting: String)
+    func initMap(mapInitOptions: MapInitOptions)
 }
 
 protocol MainMapViewOutputProtocol {
@@ -22,7 +23,7 @@ class MainMapViewController: UIViewController, MainMapViewInputProtocol {
     
     private let configurator: MainMapConfiguratorInputProtocol = MainMapConfigurator()
     
-    let label = UILabel()
+    var mapView: MapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +31,14 @@ class MainMapViewController: UIViewController, MainMapViewInputProtocol {
         
         presenter.viewDidLoad()
         
-        setupSubviews(label)
+        setupSubviews(mapView)
         setConstraints()
         
         view.backgroundColor = .white
     }
     
-    func setGreeting(greeting: String) {
-        label.text = greeting
+    func initMap(mapInitOptions: MapInitOptions) {
+        mapView = MapView(frame: view.bounds, mapInitOptions: mapInitOptions)
     }
     
     private func setupSubviews(_ subviews: UIView...) {
@@ -47,12 +48,6 @@ class MainMapViewController: UIViewController, MainMapViewInputProtocol {
     }
     
     private func setConstraints() {
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 }

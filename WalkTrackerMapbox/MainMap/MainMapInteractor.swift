@@ -5,7 +5,7 @@
 //  Created by Pavlentiy on 25.01.2022.
 //
 
-import Foundation
+import MapboxMaps
 
 protocol MainMapInteractorInputProtocol {
     init(presenter: MainMapInteractorOutputProtocol)
@@ -24,9 +24,17 @@ class MainMapInteractor: MainMapInteractorInputProtocol {
     }
     
     func provideMainMapData() {
-        let greeting = Greeting(greeting: "Hello", object: "World")
-        let greetingData = MainMapData(greting: greeting.greeting, object: greeting.object)
         
-        presenter.receiveMainMapData(mainMapData: greetingData)
+        // MARK: Map init
+        let resourceOptions = ResourceOptions(
+            accessToken: "pk.eyJ1IjoidXBhZmZ5IiwiYSI6ImNreXI4aHpuajByNHcydm12OXl0bjg3eHoifQ.Wetj_ajp8TRY_Z9vA8HLJA"
+        )
+        let mapInitOptions = MapInitOptions(resourceOptions: resourceOptions)
+        
+        let mainMapData = MainMapData(
+            mapInitOptions: mapInitOptions
+        )
+        
+        presenter.receiveMainMapData(mainMapData: mainMapData)
     }
 }
