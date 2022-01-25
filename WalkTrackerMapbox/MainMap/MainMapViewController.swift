@@ -1,13 +1,14 @@
 //
-//  ViewController.swift
+//  MainMapViewController.swift
 //  WalkTrackerMapbox
 //
-//  Created by Pavlentiy on 23.01.2022.
+//  Created by Pavlentiy on 25.01.2022.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainMapViewController: UIViewController {
+
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Hello world!"
@@ -39,4 +40,3 @@ class ViewController: UIViewController {
         ])
     }
 }
-
