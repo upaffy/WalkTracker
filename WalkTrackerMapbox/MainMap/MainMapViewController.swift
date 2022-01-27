@@ -10,20 +10,24 @@ import MapboxMaps
 
 protocol MainMapViewInputProtocol: AnyObject {
     func initMap(mapInitOptions: MapInitOptions)
+    func connectMapViewWith(consumer: CameraLocationConsumer)
 }
 
 protocol MainMapViewOutputProtocol {
     init(view: MainMapViewInputProtocol)
     func viewDidLoad()
+    func mapDidLoad()
 }
 
 class MainMapViewController: UIViewController, MainMapViewInputProtocol {
     
     var presenter: MainMapViewOutputProtocol!
     
-    private let configurator: MainMapConfiguratorInputProtocol = MainMapConfigurator()
+    // MARK: - Location debt
+    private var cameraLocationConsumer: CameraLocationConsumer!
+    private var mapView: MapView!
     
-    var mapView: MapView!
+    let configurator: MainMapConfiguratorInputProtocol = MainMapConfigurator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +38,21 @@ class MainMapViewController: UIViewController, MainMapViewInputProtocol {
         setupSubviews(mapView)
         setConstraints()
         
-        view.backgroundColor = .white
+        mapView.location.options.puckType = .puck2D()
+        
+        presenter.mapDidLoad()
     }
     
     func initMap(mapInitOptions: MapInitOptions) {
         mapView = MapView(frame: view.bounds, mapInitOptions: mapInitOptions)
+    }
+    
+    func connectMapViewWith(consumer: CameraLocationConsumer) {
+        cameraLocationConsumer = consumer
+        
+        mapView.mapboxMap.onNext(.mapLoaded) { [unowned self] _ in
+            self.mapView.location.addLocationConsumer(newConsumer: cameraLocationConsumer)
+        }
     }
     
     private func setupSubviews(_ subviews: UIView...) {

@@ -10,7 +10,12 @@ struct MainMapData {
     let mapInitOptions: MapInitOptions
 }
 
+struct MainMapConsumer {
+    let mapLocationConsumer: CameraLocationConsumer
+}
+
 class MainMapPresenter: MainMapViewOutputProtocol, MainMapInteractorOutputProtocol {
+    
     unowned var view: MainMapViewInputProtocol!
     var interactor: MainMapInteractorInputProtocol!
     
@@ -22,7 +27,15 @@ class MainMapPresenter: MainMapViewOutputProtocol, MainMapInteractorOutputProtoc
         interactor.provideMainMapData()
     }
     
+    func mapDidLoad() {
+        interactor.provideConsumerData()
+    }
+    
     func receiveMainMapData(mainMapData: MainMapData) {
         view.initMap(mapInitOptions: mainMapData.mapInitOptions)
+    }
+    
+    func receiveMainMapConsumer(mainMapConsumer: MainMapConsumer) {
+        view.connectMapViewWith(consumer: mainMapConsumer.mapLocationConsumer)
     }
 }
