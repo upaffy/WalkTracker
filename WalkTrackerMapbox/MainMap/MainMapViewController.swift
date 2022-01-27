@@ -9,14 +9,12 @@ import UIKit
 import MapboxMaps
 
 protocol MainMapViewInputProtocol: AnyObject {
-    func initMap(mapInitOptions: MapInitOptions)
-    func connectMapViewWith(consumer: CameraLocationConsumer)
+    func initMap(mapInitOptions: MapInitOptions, consumer: CameraLocationConsumer)
 }
 
 protocol MainMapViewOutputProtocol {
     init(view: MainMapViewInputProtocol)
     func viewDidLoad()
-    func mapDidLoad()
 }
 
 class MainMapViewController: UIViewController, MainMapViewInputProtocol {
@@ -39,16 +37,12 @@ class MainMapViewController: UIViewController, MainMapViewInputProtocol {
         setConstraints()
         
         mapView.location.options.puckType = .puck2D()
-        
-        presenter.mapDidLoad()
     }
     
-    func initMap(mapInitOptions: MapInitOptions) {
-        mapView = MapView(frame: view.bounds, mapInitOptions: mapInitOptions)
-    }
-    
-    func connectMapViewWith(consumer: CameraLocationConsumer) {
+    func initMap(mapInitOptions: MapInitOptions, consumer: CameraLocationConsumer) {
         cameraLocationConsumer = consumer
+        
+        mapView = MapView(frame: view.bounds, mapInitOptions: mapInitOptions)
         
         mapView.mapboxMap.onNext(.mapLoaded) { [unowned self] _ in
             self.mapView.location.addLocationConsumer(newConsumer: cameraLocationConsumer)
