@@ -42,10 +42,3 @@ class MainMapInteractor: MainMapInteractorInputProtocol {
         presenter.receiveMainMapData(mainMapData: mainMapData)
     }
 }
-
-// MARK: - Location
-class CameraLocationConsumer: LocationConsumer {
-    public func locationUpdate(newLocation: Location) {
-        print(newLocation.coordinate)
-    }
-}
