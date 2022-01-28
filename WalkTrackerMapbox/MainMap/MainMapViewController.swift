@@ -30,9 +30,14 @@ class MainMapViewController: UIViewController {
         super.viewDidLoad()
         viewModel = MainMapViewModel()
         
+        viewModel.userLocation.bind { location in
+            print(location.coordinate)
+        }
+        
         mapView.location.options.puckType = .puck2D()
     }
     
+    // MARK: Setup UI
     private func setupSubviews(_ subviews: UIView...) {
         subviews.forEach { subview in
             view.addSubview(subview)
