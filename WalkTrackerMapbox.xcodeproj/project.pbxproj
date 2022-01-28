@@ -58,13 +58,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		E9549EF627A3EE8F00ADB952 /* MainMapp */ = {
+		E9549EFB27A400BA00ADB952 /* MainMap */ = {
 			isa = PBXGroup;
 			children = (
 				E9549EF727A3EEA400ADB952 /* MainMapViewController.swift */,
 				E9549EF927A3EEB500ADB952 /* MainMapViewModel.swift */,
 			);
-			path = MainMapp;
+			path = MainMap;
 			sourceTree = "<group>";
 		};
 		E9AFCFA1279D88720018A16E = {
@@ -88,7 +88,7 @@
 		E9AFCFAC279D88720018A16E /* WalkTrackerMapbox */ = {
 			isa = PBXGroup;
 			children = (
-				E9549EF627A3EE8F00ADB952 /* MainMapp */,
+				E9549EFB27A400BA00ADB952 /* MainMap */,
 				E9549EF327A3EB3400ADB952 /* Services */,
 				E9AFCFAD279D88720018A16E /* AppDelegate.swift */,
 				E9AFCFB6279D88760018A16E /* Assets.xcassets */,
