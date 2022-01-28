@@ -31,7 +31,16 @@ class MainMapViewController: UIViewController {
         viewModel = MainMapViewModel()
         
         viewModel.userLocation.bind { location in
-            print(location.coordinate)
+            // draw line 
+        }
+        
+        viewModel.isCameraMove.bind { [unowned self] isCameraMove in
+            if isCameraMove {
+                self.mapView.camera.fly(
+                    to: CameraOptions(center: viewModel.userLocation.value.coordinate, zoom: 15),
+                    duration: 1.3
+                )
+            } 
         }
         
         mapView.location.options.puckType = .puck2D()
