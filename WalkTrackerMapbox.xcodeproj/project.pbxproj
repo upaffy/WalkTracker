@@ -11,6 +11,8 @@
 		E9549EF527A3EB6C00ADB952 /* CameraLocationConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EF427A3EB6C00ADB952 /* CameraLocationConsumer.swift */; };
 		E9549EF827A3EEA400ADB952 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EF727A3EEA400ADB952 /* MainMapViewController.swift */; };
 		E9549EFA27A3EEB500ADB952 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EF927A3EEB500ADB952 /* MainMapViewModel.swift */; };
+		E9549EFE27A4035300ADB952 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EFD27A4035300ADB952 /* Box.swift */; };
+		E9549F0027A45E4600ADB952 /* DefaultMapValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EFF27A45E4600ADB952 /* DefaultMapValues.swift */; };
 		E9AFCFAE279D88720018A16E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFCFAD279D88720018A16E /* AppDelegate.swift */; };
 		E9AFCFB7279D88760018A16E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9AFCFB6279D88760018A16E /* Assets.xcassets */; };
 		E9AFCFBA279D88760018A16E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9AFCFB8279D88760018A16E /* LaunchScreen.storyboard */; };
@@ -22,6 +24,8 @@
 		E9549EF427A3EB6C00ADB952 /* CameraLocationConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLocationConsumer.swift; sourceTree = "<group>"; };
 		E9549EF727A3EEA400ADB952 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		E9549EF927A3EEB500ADB952 /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
+		E9549EFD27A4035300ADB952 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		E9549EFF27A45E4600ADB952 /* DefaultMapValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapValues.swift; sourceTree = "<group>"; };
 		E9AFCFAA279D88720018A16E /* WalkTrackerMapbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalkTrackerMapbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9AFCFAD279D88720018A16E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9AFCFB6279D88760018A16E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				E9549EF427A3EB6C00ADB952 /* CameraLocationConsumer.swift */,
+				E9549EFF27A45E4600ADB952 /* DefaultMapValues.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -65,6 +70,14 @@
 				E9549EF927A3EEB500ADB952 /* MainMapViewModel.swift */,
 			);
 			path = MainMap;
+			sourceTree = "<group>";
+		};
+		E9549EFC27A4033900ADB952 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E9549EFD27A4035300ADB952 /* Box.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		E9AFCFA1279D88720018A16E = {
@@ -88,6 +101,7 @@
 		E9AFCFAC279D88720018A16E /* WalkTrackerMapbox */ = {
 			isa = PBXGroup;
 			children = (
+				E9549EFC27A4033900ADB952 /* Helpers */,
 				E9549EFB27A400BA00ADB952 /* MainMap */,
 				E9549EF327A3EB3400ADB952 /* Services */,
 				E9AFCFAD279D88720018A16E /* AppDelegate.swift */,
@@ -225,6 +239,8 @@
 				E9549EF827A3EEA400ADB952 /* MainMapViewController.swift in Sources */,
 				E9549EF527A3EB6C00ADB952 /* CameraLocationConsumer.swift in Sources */,
 				E9AFCFAE279D88720018A16E /* AppDelegate.swift in Sources */,
+				E9549F0027A45E4600ADB952 /* DefaultMapValues.swift in Sources */,
+				E9549EFE27A4035300ADB952 /* Box.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
