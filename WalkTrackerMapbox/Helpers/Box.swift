@@ -22,6 +22,5 @@ class Box<T> {
 
     func bind(listener: @escaping Listener) {
         self.listener = listener
-        listener(value)
     }
 }
