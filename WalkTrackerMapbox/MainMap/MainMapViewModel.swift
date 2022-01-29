@@ -9,15 +9,17 @@ import MapboxMaps
 import CoreLocation
 
 protocol MainMapViewModelProtocol: AnyObject {
+    var userPreviousLocation: Location? { get set }
     
     var userLocation: Box<Location> { get }
     var isCameraMove: Box<Bool> { get }
     
     func getMapSettings(completion: @escaping(MapInitOptions, CameraLocationConsumer) -> Void)
-    func moveCamera()
+    func moveCameraToUserLocation()
 }
 
 class MainMapViewModel: MainMapViewModelProtocol {
+    var userPreviousLocation: Location? = nil
     
     var userLocation: Box<Location>
     var isCameraMove: Box<Bool>
@@ -27,9 +29,9 @@ class MainMapViewModel: MainMapViewModelProtocol {
     
     required init() {
         userLocation = Box(DefaultMapValues.location)
+        isCameraMove = Box(false)
         
         mapLocationConsumer = CameraLocationConsumer(userLocation: &userLocation)
-        isCameraMove = Box(false)
     }
     
     func getMapSettings(completion: @escaping(MapInitOptions, CameraLocationConsumer) -> Void) {
@@ -40,7 +42,7 @@ class MainMapViewModel: MainMapViewModelProtocol {
         completion(mapInitOptions, mapLocationConsumer)
     }
     
-    func moveCamera() {
+    func moveCameraToUserLocation() {
         isCameraMove.value = true
     }
 }
