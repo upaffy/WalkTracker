@@ -14,7 +14,7 @@ class CameraLocationConsumer: LocationConsumer {
         self.userLocation = userLocation
     }
     
-    public func locationUpdate(newLocation: Location) {
+    func locationUpdate(newLocation: Location) {
         userLocation.value = newLocation
     }
 }
