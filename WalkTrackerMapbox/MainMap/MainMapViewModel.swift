@@ -51,7 +51,7 @@ class MainMapViewModel: MainMapViewModelProtocol {
         completion(mapInitOptions, mapLocationConsumer)
     }
     
-    func moveCameraToUserLocation() {
+    @objc func moveCameraToUserLocation() {
         isCameraMove.value = true
     }
     

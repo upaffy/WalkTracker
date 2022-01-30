@@ -10,8 +10,6 @@ import MapboxMaps
 
 class MainMapViewController: UIViewController {
     
-    private var mapView: MapView!
-    
     var viewModel: MainMapViewModelProtocol! {
         didSet {
             viewModel.getMapSettings { [unowned self] options, consumer in
@@ -24,12 +22,15 @@ class MainMapViewController: UIViewController {
         }
     }
     
+    private var mapView: MapView!
+    let findLocationButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = MainMapViewModel()
         
-        setupUI(with: mapView)
-        
+        setupUI(with: findLocationButton)
+                
         mapView.location.options.puckType = .puck2D()
         
         setupUserLocationBinding()
@@ -120,15 +121,35 @@ class MainMapViewController: UIViewController {
     private func setupUI(with views: UIView...){
         setupSubviews(views)
         setConstraints()
+        setupFindLocationButton()
     }
     
     private func setupSubviews(_ subviews: [UIView]) {
+        view.addSubview(mapView)
+        
         subviews.forEach { subview in
-            view.addSubview(subview)
+            mapView.addSubview(subview)
         }
     }
     
     private func setConstraints() {
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        findLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            findLocationButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 400),
+            findLocationButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            findLocationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400)
+        ])
+    }
+    
+    private func setupFindLocationButton() {
+        findLocationButton.addTarget(
+            viewModel,
+            action: Selector(("moveCameraToUserLocation")),
+            for: .touchUpInside
+        )
+        
+        findLocationButton.backgroundColor = .blue
     }
 }
