@@ -9,7 +9,7 @@ import MapboxMaps
 import CoreLocation
 
 protocol MainMapViewModelProtocol: AnyObject {
-    var userPreviousLocation: Location? { get set }
+    var userPreviousLocations: [Location] { get set }
     
     var userLocation: Box<Location> { get }
     var isCameraMove: Box<Bool> { get }
@@ -19,7 +19,7 @@ protocol MainMapViewModelProtocol: AnyObject {
 }
 
 class MainMapViewModel: MainMapViewModelProtocol {
-    var userPreviousLocation: Location? = nil
+    var userPreviousLocations: [Location] = []
     
     var userLocation: Box<Location>
     var isCameraMove: Box<Bool>
