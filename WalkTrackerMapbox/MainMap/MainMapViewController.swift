@@ -10,9 +10,6 @@ import MapboxMaps
 
 class MainMapViewController: UIViewController {
     
-    private var routeLineSource: GeoJSONSource!
-    private let sourceIdentifier = "user-location"
-    
     private var mapView: MapView!
     
     var viewModel: MainMapViewModelProtocol! {
@@ -33,29 +30,27 @@ class MainMapViewController: UIViewController {
         
         setupUI(with: mapView)
         
+        mapView.location.options.puckType = .puck2D()
+        
         setupUserLocationBinding()
         setupIsCameraMoveBinding()
-        
-        mapView.location.options.puckType = .puck2D()
     }
     
     // MARK: - Setup bindings
     private func setupUserLocationBinding() {
-        viewModel.userLocation.bind { [unowned self] currentLocation in
+        viewModel.userLocation.bind { [unowned self] _ in
             
             let previousLocations = viewModel.userPreviousLocations
 
-            if previousLocations != [] {
-                // Draw line
-                updateLine(previousLocations: previousLocations, currentLocation: currentLocation)
-            } else {
-                addLine(location: currentLocation)
-                
+            if previousLocations.isEmpty {
                 // Move camera to location the first time it will open
                 viewModel.moveCameraToUserLocation()
+                // Create and add line layer to the map
+                addLine()
+            } else {
+                // Draw line
+                updateLine()
             }
-            
-            viewModel.userPreviousLocations.append(currentLocation)
         }
     }
     
@@ -71,20 +66,37 @@ class MainMapViewController: UIViewController {
     }
     
     // MARK: - Map drawing
-    private func addLine(location: Location) {
+    private func addLine() {
+        viewModel.configureLineSource()
         
-        // Create a GeoJSON data source
-        routeLineSource = GeoJSONSource()
-        routeLineSource.data = .feature(Feature(geometry: .lineString(LineString([location.coordinate]))))
-        
-        // Create a line layer
+        let lineLayer = configureLineLayer()
+        addLineLayerToMap(layer: lineLayer)
+    }
+    
+    private func updateLine() {
+        let updatedLine = viewModel.updateLineSource()
+        try! self.mapView.mapboxMap.style.updateGeoJSONSource(withId: viewModel.sourceIdentifier,
+                                                              geoJSON: .feature(updatedLine))
+    }
+    
+    private func configureLineLayer() -> LineLayer {
         var lineLayer = LineLayer(id: "line-layer")
-        lineLayer.source = sourceIdentifier
-        lineLayer.lineColor = .constant(StyleColor(.red))
+        lineLayer.source = viewModel.sourceIdentifier
         
-        let lowZoomWidth = 5
-        let highZoomWidth = 20
-
+        setLineWidthExpression(to: &lineLayer, lowZoomWidth: 5, highZoomWidth: 20)
+        setLineAppearance(&lineLayer)
+        
+        return lineLayer
+    }
+    
+    private func addLineLayerToMap(layer: LineLayer) {
+        try! mapView.mapboxMap.style.addSource(viewModel.routeLineSource,
+                                               id: viewModel.sourceIdentifier)
+        
+        try! mapView.mapboxMap.style.addLayer(layer)
+    }
+    
+    private func setLineWidthExpression(to lineLayer: inout LineLayer, lowZoomWidth: Int, highZoomWidth: Int) {
         // Use an expression to define the line width at different zoom extents
         lineLayer.lineWidth = .expression(
             Exp(.interpolate) {
@@ -96,23 +108,12 @@ class MainMapViewController: UIViewController {
                 highZoomWidth
             }
         )
-        
-        lineLayer.lineCap = .constant(.round)
-        lineLayer.lineJoin = .constant(.round)
-        
-        // Add the lineLayer to the map.
-        try! mapView.mapboxMap.style.addSource(routeLineSource, id: sourceIdentifier)
-        try! mapView.mapboxMap.style.addLayer(lineLayer, layerPosition: .below("puck"))
     }
     
-    private func updateLine(previousLocations: [Location], currentLocation: Location) {
-        var coordinates = previousLocations.map { $0.coordinate }
-        coordinates.append(currentLocation.coordinate)
-        
-        let updatedLine = Feature(geometry: .lineString(LineString(coordinates)))
-        routeLineSource.data = .feature(updatedLine)
-        try! self.mapView.mapboxMap.style.updateGeoJSONSource(withId: self.sourceIdentifier,
-                                                              geoJSON: .feature(updatedLine))
+    private func setLineAppearance(_ lineLayer: inout LineLayer) {
+        lineLayer.lineColor = .constant(StyleColor(.red))
+        lineLayer.lineCap = .constant(.round)
+        lineLayer.lineJoin = .constant(.round)
     }
     
     // MARK: - Setup UI
