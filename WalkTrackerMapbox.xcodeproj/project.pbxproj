@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B88C1A14A7320E030BCD2E9 /* Pods_WalkTrackerMapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FBFBDBB9F49AD4B41BBE4B /* Pods_WalkTrackerMapbox.framework */; };
+		E9141B9B27A7EB1C00C93EA9 /* MainMapUserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9141B9A27A7EB1C00C93EA9 /* MainMapUserLocationButton.swift */; };
 		E9549EF527A3EB6C00ADB952 /* CameraLocationConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EF427A3EB6C00ADB952 /* CameraLocationConsumer.swift */; };
 		E9549EF827A3EEA400ADB952 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EF727A3EEA400ADB952 /* MainMapViewController.swift */; };
 		E9549EFA27A3EEB500ADB952 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9549EF927A3EEB500ADB952 /* MainMapViewModel.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		14236B2F016FD31FC3122B1B /* Pods-WalkTrackerMapbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkTrackerMapbox.release.xcconfig"; path = "Target Support Files/Pods-WalkTrackerMapbox/Pods-WalkTrackerMapbox.release.xcconfig"; sourceTree = "<group>"; };
 		83FBFBDBB9F49AD4B41BBE4B /* Pods_WalkTrackerMapbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkTrackerMapbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9141B9A27A7EB1C00C93EA9 /* MainMapUserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapUserLocationButton.swift; sourceTree = "<group>"; };
 		E9549EF427A3EB6C00ADB952 /* CameraLocationConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLocationConsumer.swift; sourceTree = "<group>"; };
 		E9549EF727A3EEA400ADB952 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		E9549EF927A3EEB500ADB952 /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				E9549EF727A3EEA400ADB952 /* MainMapViewController.swift */,
 				E9549EF927A3EEB500ADB952 /* MainMapViewModel.swift */,
+				E9141B9A27A7EB1C00C93EA9 /* MainMapUserLocationButton.swift */,
 			);
 			path = MainMap;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				E9549EFA27A3EEB500ADB952 /* MainMapViewModel.swift in Sources */,
 				E9549EF827A3EEA400ADB952 /* MainMapViewController.swift in Sources */,
 				E9549EF527A3EB6C00ADB952 /* CameraLocationConsumer.swift in Sources */,
+				E9141B9B27A7EB1C00C93EA9 /* MainMapUserLocationButton.swift in Sources */,
 				E9AFCFAE279D88720018A16E /* AppDelegate.swift in Sources */,
 				E9549F0027A45E4600ADB952 /* DefaultMapValues.swift in Sources */,
 				E9549EFE27A4035300ADB952 /* Box.swift in Sources */,
@@ -382,6 +386,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MQR7F3P9GY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WalkTrackerMapbox/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "User Location";
@@ -411,6 +416,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MQR7F3P9GY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WalkTrackerMapbox/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "User Location";

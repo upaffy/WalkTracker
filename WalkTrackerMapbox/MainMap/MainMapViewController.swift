@@ -23,14 +23,17 @@ class MainMapViewController: UIViewController {
     }
     
     private var mapView: MapView!
-    let findLocationButton = UIButton()
+    let findLocationButton = MainMapUserLocationButton(buttonSize: 40,
+                                                       alphaComponent: 0.1,
+                                                       cornerRadius: 3)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = MainMapViewModel()
         
         setupUI(with: findLocationButton)
-                
+        
+        mapView.tintColor = .black
         mapView.location.options.puckType = .puck2D()
         
         setupUserLocationBinding()
@@ -136,10 +139,12 @@ class MainMapViewController: UIViewController {
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         findLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            findLocationButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 400),
-            findLocationButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            findLocationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400)
+            findLocationButton.widthAnchor.constraint(equalToConstant: findLocationButton.buttonSize),
+            findLocationButton.heightAnchor.constraint(equalToConstant: findLocationButton.buttonSize),
+            findLocationButton.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: view.bounds.height / 2),
+            findLocationButton.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -10)
         ])
     }
     
@@ -149,7 +154,5 @@ class MainMapViewController: UIViewController {
             action: Selector(("moveCameraToUserLocation")),
             for: .touchUpInside
         )
-        
-        findLocationButton.backgroundColor = .blue
     }
 }
