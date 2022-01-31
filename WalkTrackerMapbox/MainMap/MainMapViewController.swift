@@ -18,11 +18,14 @@ class MainMapViewController: UIViewController {
                 mapView.mapboxMap.onNext(.mapLoaded) { [unowned self] _ in
                     self.mapView.location.addLocationConsumer(newConsumer: consumer)
                 }
+                
+                try! mapView.mapboxMap.setCameraBounds(with: CameraBoundsOptions(maxZoom: 17, maxPitch: 0))
             }
         }
     }
     
     private var mapView: MapView!
+    
     let findLocationButton = MainMapUserLocationButton(
         buttonSize: 40,
         alphaComponent: 0.1,
@@ -37,7 +40,7 @@ class MainMapViewController: UIViewController {
         
         mapView.tintColor = .black
 
-        mapView.location.options.puckType = .puck2D(.init(topImage: UIImage(systemName: "circle"), showsAccuracyRing: true))
+        setupPuck()
         
         setupUserLocationBinding()
         setupIsCameraMoveBinding()
@@ -90,7 +93,7 @@ class MainMapViewController: UIViewController {
         var lineLayer = LineLayer(id: "line-layer")
         lineLayer.source = viewModel.sourceIdentifier
         
-        setLineWidthExpression(to: &lineLayer, lowZoomWidth: 5, highZoomWidth: 20)
+        setLineWidthExpression(to: &lineLayer, lowZoomWidth: 10, highZoomWidth: 35)
         setLineAppearance(&lineLayer)
         
         return lineLayer
@@ -109,9 +112,9 @@ class MainMapViewController: UIViewController {
             Exp(.interpolate) {
                 Exp(.linear)
                 Exp(.zoom)
-                14
+                17
                 lowZoomWidth
-                18
+                25
                 highZoomWidth
             }
         )
@@ -121,6 +124,13 @@ class MainMapViewController: UIViewController {
         lineLayer.lineColor = .constant(StyleColor(.red))
         lineLayer.lineCap = .constant(.round)
         lineLayer.lineJoin = .constant(.round)
+    }
+    
+    private func setupPuck() {
+        mapView.location.options.puckType = .puck2D(.init(
+            topImage: UIImage(systemName: "circle"),
+            showsAccuracyRing: true)
+        )
     }
     
     // MARK: - Setup UI
