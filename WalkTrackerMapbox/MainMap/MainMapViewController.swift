@@ -23,9 +23,11 @@ class MainMapViewController: UIViewController {
     }
     
     private var mapView: MapView!
-    let findLocationButton = MainMapUserLocationButton(buttonSize: 40,
-                                                       alphaComponent: 0.1,
-                                                       cornerRadius: 3)
+    let findLocationButton = MainMapUserLocationButton(
+        buttonSize: 40,
+        alphaComponent: 0.1,
+        cornerRadius: 3
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,8 @@ class MainMapViewController: UIViewController {
         setupUI(with: findLocationButton)
         
         mapView.tintColor = .black
-        mapView.location.options.puckType = .puck2D()
+
+        mapView.location.options.puckType = .puck2D(.init(topImage: UIImage(systemName: "circle"), showsAccuracyRing: true))
         
         setupUserLocationBinding()
         setupIsCameraMoveBinding()
@@ -97,7 +100,7 @@ class MainMapViewController: UIViewController {
         try! mapView.mapboxMap.style.addSource(viewModel.routeLineSource,
                                                id: viewModel.sourceIdentifier)
         
-        try! mapView.mapboxMap.style.addLayer(layer)
+        try! mapView.mapboxMap.style.addLayer(layer, layerPosition: .at(70))
     }
     
     private func setLineWidthExpression(to lineLayer: inout LineLayer, lowZoomWidth: Int, highZoomWidth: Int) {
