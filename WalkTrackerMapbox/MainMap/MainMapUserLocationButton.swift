@@ -6,7 +6,6 @@ class MainMapUserLocationButton: UIButton {
     let buttonSize: CGFloat
     private let alphaComponent: CGFloat
     private let cornerRadius: CGFloat
-    private var isButtonTouched = false
     private var substrateColor: UIColor?
     
     required init?(coder: NSCoder) {

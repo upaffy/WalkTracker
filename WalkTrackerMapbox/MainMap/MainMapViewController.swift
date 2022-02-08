@@ -39,6 +39,8 @@ class MainMapViewController: UIViewController {
         setupUI(with: findLocationButton)
         
         mapView.tintColor = .black
+        mapView.ornaments.options.compass.visibility = .visible
+        mapView.ornaments.options.scaleBar.visibility = .hidden
 
         setupPuck()
         
@@ -122,6 +124,18 @@ class MainMapViewController: UIViewController {
     
     private func setLineAppearance(_ lineLayer: inout LineLayer) {
         lineLayer.lineColor = .constant(StyleColor(.red))
+        
+//        lineLayer.lineColor = .expression(
+//            Exp(.interpolate) {
+//                Exp(.linear)
+//                Exp(.heatmapDensity)
+//                0
+//                UIColor.white
+//                20
+//                UIColor.red
+//            }
+//        )
+        
         lineLayer.lineCap = .constant(.round)
         lineLayer.lineJoin = .constant(.round)
     }
